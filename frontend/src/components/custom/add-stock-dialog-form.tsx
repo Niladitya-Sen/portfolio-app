@@ -39,7 +39,6 @@ export default function AddStockDialogForm() {
     const [loading, setLoading] = useState(false);
 
     const loadOptions = async (inputValue: string) => {
-        console.log(inputValue);
         const response = await fetch(finhubAPIURL('search', 'exchange=US', 'q=' + inputValue));
         const data: { count: number, result: SearchResultType[] } = await response.json();
         return data.result.map(item => ({

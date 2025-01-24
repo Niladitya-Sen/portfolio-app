@@ -40,7 +40,6 @@ export default function Index() {
       if (response.ok) {
         document.cookie = `token=${data.token}; expires=${new Date(Date.now() + data.expiresIn).toUTCString()}; path=/`;
         document.cookie = `username=${data.username}; expires=${new Date(Date.now() + data.expiresIn).toUTCString()}; path=/`;
-        console.log(document.cookie);
         router.push('/home');
       } else {
         setErrors(data.errors);

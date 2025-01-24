@@ -46,7 +46,6 @@ export default function Navbar() {
                 const response = await fetch(finhubAPIURL('search', 'exchange=US', 'q=' + search));
                 const data = await response.json();
                 setSearchResults(data.result);
-                console.log(data);
             } catch (error) {
                 console.log(error);
             } finally {
