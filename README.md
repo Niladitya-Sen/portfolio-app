@@ -99,5 +99,5 @@ Run the following command to build the project:
 
 If deployed, provide links to the hosted application:
 
-- **Frontend**: [https://portfolio-app-gilt-phi.vercel.app](hhttps://portfolio-app-gilt-phi.vercel.app)
+- **Frontend**: [https://portfolio-app-gilt-phi.vercel.app](https://portfolio-app-gilt-phi.vercel.app)
 - **Backend API**: [https://portfolio-app-private.onrender.com/api/](https://portfolio-app-private.onrender.com/api/)
