@@ -115,7 +115,7 @@ export default function Navbar() {
                 {
                     username && (
                         <DropdownMenu>
-                            <DropdownMenuTrigger><p>{`${username.charAt(0).toUpperCase()}${username.charAt(username.length - 1).toUpperCase()}`}</p></DropdownMenuTrigger>
+                            <DropdownMenuTrigger><p>{`${username.charAt(0).toUpperCase()}${username.split(" ").at(-1)?.charAt(0).toUpperCase()}`}</p></DropdownMenuTrigger>
                             <DropdownMenuContent className="mr-4 mt-4">
                                 <DropdownMenuItem onClick={() => {
                                     document.cookie = 'token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
