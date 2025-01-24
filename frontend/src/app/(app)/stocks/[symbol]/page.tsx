@@ -3,6 +3,7 @@
 import LineChart from '@/components/custom/line-chart';
 import { Button } from '@/components/ui/button';
 import { alphaVantageApiUrl, finhubAPIURL } from '@/lib/utils';
+import { ArrowLeft } from 'lucide-react';
 import { useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
@@ -145,7 +146,7 @@ export default function StockDetails() {
     return (
         <main className='max-w-screen-lg mx-auto w-full p-4 mb-4'>
             <Button size={'icon'} variant={'ghost'} onClick={() => window.history.back()} className='text-xl mb-4'>
-                &larr;
+                <ArrowLeft />
             </Button>
             <div className='flex items-center justify-start gap-4'>
                 <img src={companyProfile?.logo} alt={companyProfile?.name} className='w-20 h-20 rounded-lg' />
