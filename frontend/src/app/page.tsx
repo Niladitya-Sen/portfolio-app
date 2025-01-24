@@ -11,6 +11,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { APIURL, cn } from "@/lib/utils";
+import { LoaderCircle } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
@@ -18,10 +19,12 @@ import React, { useState } from "react";
 export default function Index() {
   const router = useRouter();
   const [errors, setErrors] = useState<Record<string, Array<string>>>();
+  const [loading, setLoading] = useState(false);
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
+    setLoading(true);
     const formData = new FormData(e.currentTarget);
     const body = Object.fromEntries(formData);
 
@@ -44,6 +47,8 @@ export default function Index() {
       }
     } catch (error) {
       console.log(error);
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -98,8 +103,11 @@ export default function Index() {
                         ))}
                       </ul>
                     </div>
-                    <Button type="submit" className="w-full">
+                    <Button type="submit" className="w-full" disabled={loading}>
                       Login
+                      <LoaderCircle className={cn("hidden ml-2", {
+                        "animate-spin block": loading
+                      })} />
                     </Button>
                   </div>
                   <div className="text-center text-sm">

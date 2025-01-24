@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import NextTopLoader from 'nextjs-toploader';
 
 const inter = Inter({
   variable: "--font-inter",
@@ -20,6 +21,7 @@ export default async function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <NextTopLoader color="#3a72ec" showSpinner={false} />
       <body
         className={`${inter.variable} ${inter.variable} antialiased`}
       >

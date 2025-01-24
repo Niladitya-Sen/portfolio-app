@@ -12,8 +12,8 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { StockType, useStocks } from "@/context/StocksContext";
 import { useQuote } from "@/hooks/hooks";
-import { APIURL, finhubAPIURL } from '@/lib/utils';
-import { Edit } from "lucide-react";
+import { APIURL, cn, finhubAPIURL } from '@/lib/utils';
+import { Edit, LoaderCircle } from "lucide-react";
 import React, { useState } from 'react';
 import AsyncSelect from "react-select/async";
 
@@ -41,6 +41,7 @@ export default function EditStockDialogForm({ id, name, price, quantity, symbol 
     const { getQuote } = useQuote();
     const [open, setOpen] = useState(false);
     const { setStocks, stocks } = useStocks();
+    const [loading, setLoading] = useState(false);
 
     const loadOptions = async (inputValue: string) => {
         console.log(inputValue);
@@ -54,29 +55,37 @@ export default function EditStockDialogForm({ id, name, price, quantity, symbol 
 
     async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
-        const token = document.cookie.split('; ').find(row => row.startsWith('token'))?.split('=')[1];
-        const response = await fetch(APIURL('stocks'), {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`
-            },
-            body: JSON.stringify({ id, ...selectedStock })
-        });
-        const data = await response.json();
-        if (response.ok) {
-            setStocks([
-                ...stocks.filter(stock => stock.id !== data.id),
-                {
-                    id: data.id,
-                    name: data.name,
-                    symbol: data.symbol,
-                    quantity: data.quantity,
-                    price: data.buyPrice,
-                    currentPrice: data.buyPrice
-                }
-            ]);
-            setOpen(false);
+        setLoading(true);
+
+        try {
+            const token = document.cookie.split('; ').find(row => row.startsWith('token'))?.split('=')[1];
+            const response = await fetch(APIURL('stocks'), {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+                body: JSON.stringify({ id, ...selectedStock })
+            });
+            const data = await response.json();
+            if (response.ok) {
+                setStocks([
+                    ...stocks.filter(stock => stock.id !== data.id),
+                    {
+                        id: data.id,
+                        name: data.name,
+                        symbol: data.symbol,
+                        quantity: data.quantity,
+                        price: data.buyPrice,
+                        currentPrice: data.buyPrice
+                    }
+                ]);
+                setOpen(false);
+            }
+        } catch (error) {
+            console.log(error);
+        } finally {
+            setLoading(false);
         }
     }
 
@@ -124,7 +133,12 @@ export default function EditStockDialogForm({ id, name, price, quantity, symbol 
                         <Label htmlFor="buyprice">Buy Price</Label>
                         <Input type='number' id="buyprice" name="buyprice" readOnly value={selectedStock?.buyPrice || ""} />
                     </div>
-                    <Button className='col-span-full'>Edit</Button>
+                    <Button className='col-span-full'>
+                        Edit
+                        <LoaderCircle className={cn("hidden ml-2", {
+                            "animate-spin block": loading
+                        })} />
+                    </Button>
                 </form>
             </DialogContent>
         </Dialog>

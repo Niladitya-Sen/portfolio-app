@@ -9,26 +9,33 @@ import {
     DialogTrigger,
 } from "@/components/ui/dialog";
 import { useStocks } from '@/context/StocksContext';
-import { APIURL } from '@/lib/utils';
-import { Trash } from 'lucide-react';
+import { APIURL, cn } from '@/lib/utils';
+import { LoaderCircle, Trash } from 'lucide-react';
 import { useState } from 'react';
 import { Button } from '../ui/button';
 
 export default function DeleteStockDialog({ id }: Readonly<{ id: number }>) {
     const [open, setOpen] = useState(false);
     const { setStocks, stocks } = useStocks();
+    const [loading, setLoading] = useState(false);
 
     async function deleteStock() {
-        const token = document.cookie.split('; ').find(row => row.startsWith('token'))?.split('=')[1];
-        const response = await fetch(APIURL('stocks/' + id), {
-            method: "DELETE",
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`
+        try {
+            const token = document.cookie.split('; ').find(row => row.startsWith('token'))?.split('=')[1];
+            const response = await fetch(APIURL('stocks/' + id), {
+                method: "DELETE",
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+            if (response.ok) {
+                setStocks(stocks.filter(stock => stock.id !== id));
             }
-        });
-        if (response.ok) {
-            setStocks(stocks.filter(stock => stock.id !== id));
+        } catch (error) {
+            console.log(error);
+        } finally {
+            setLoading(false);
         }
     }
 
@@ -48,10 +55,15 @@ export default function DeleteStockDialog({ id }: Readonly<{ id: number }>) {
                 </DialogHeader>
                 <div className='flex justify-start items-center gap-2'>
                     <Button variant={'secondary'} onClick={() => setOpen(false)}>Cancel</Button>
-                    <Button className='bg-red-600 hover:bg-red-500' onClick={() => {
+                    <Button className='bg-red-600 hover:bg-red-500' disabled={loading} onClick={() => {
                         deleteStock();
                         setOpen(false);
-                    }}>Delete</Button>
+                    }}>
+                        Delete
+                        <LoaderCircle className={cn("hidden ml-2", {
+                            "animate-spin block": loading
+                        })} />
+                    </Button>
                 </div>
             </DialogContent>
         </Dialog>
