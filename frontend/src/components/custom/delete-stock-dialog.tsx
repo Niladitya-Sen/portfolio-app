@@ -13,11 +13,13 @@ import { APIURL, cn } from '@/lib/utils';
 import { LoaderCircle, Trash } from 'lucide-react';
 import { useState } from 'react';
 import { Button } from '../ui/button';
+import { useToast } from "@/hooks/use-toast";
 
 export default function DeleteStockDialog({ id }: Readonly<{ id: number }>) {
     const [open, setOpen] = useState(false);
     const { setStocks, stocks } = useStocks();
     const [loading, setLoading] = useState(false);
+    const { toast } = useToast();
 
     async function deleteStock() {
         try {
@@ -34,6 +36,11 @@ export default function DeleteStockDialog({ id }: Readonly<{ id: number }>) {
             }
         } catch (error) {
             console.log(error);
+            toast({
+                title: "Error",
+                description: "Something went wrong. Please try again later.",
+                variant: "destructive"
+            });
         } finally {
             setLoading(false);
         }

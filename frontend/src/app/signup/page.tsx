@@ -9,6 +9,7 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { useToast } from "@/hooks/use-toast";
 import { APIURL, cn } from "@/lib/utils";
 import { LoaderCircle } from "lucide-react";
 import Link from "next/link";
@@ -19,6 +20,7 @@ export default function Signup() {
     const router = useRouter();
     const [errors, setErrors] = useState<Record<string, Array<string>>>();
     const [loading, setLoading] = useState(false);
+    const { toast } = useToast();
 
     function handleFormChange(e: React.ChangeEvent<HTMLFormElement>) {
         setErrors((prev) => ({ ...prev, [e.target.name]: [] }));
@@ -46,6 +48,11 @@ export default function Signup() {
             }
         } catch (error) {
             console.log(error);
+            toast({
+                title: "Error",
+                description: "Something went wrong. Please try again later.",
+                variant: "destructive",
+            });
         } finally {
             setLoading(false);
         }

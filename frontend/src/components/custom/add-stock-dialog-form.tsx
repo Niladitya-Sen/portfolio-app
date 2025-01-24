@@ -12,6 +12,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useStocks } from "@/context/StocksContext";
 import { useQuote } from '@/hooks/hooks';
+import { useToast } from "@/hooks/use-toast";
 import { APIURL, cn, finhubAPIURL } from '@/lib/utils';
 import { LoaderCircle, PlusCircle } from "lucide-react";
 import React, { useState } from 'react';
@@ -37,6 +38,7 @@ export default function AddStockDialogForm() {
     const { setStock } = useStocks();
     const [open, setOpen] = useState(false);
     const [loading, setLoading] = useState(false);
+    const { toast } = useToast();
 
     const loadOptions = async (inputValue: string) => {
         const response = await fetch(finhubAPIURL('search', 'exchange=US', 'q=' + inputValue));
@@ -75,6 +77,11 @@ export default function AddStockDialogForm() {
             }
         } catch (error) {
             console.log(error);
+            toast({
+                title: "Error",
+                description: "Something went wrong. Please try again later.",
+                variant: "destructive"
+            });
         } finally {
             setLoading(false);
         }
