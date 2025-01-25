@@ -150,7 +150,7 @@ export default function Signup() {
                                         </div>
                                         <Button type="submit" className="w-full" disabled={loading}>
                                             Signup
-                                            <LoaderCircle className={cn("hidden ml-2", {
+                                            <LoaderCircle className={cn("hidden ", {
                                                 "animate-spin block": loading
                                             })} />
                                         </Button>

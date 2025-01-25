@@ -14,7 +14,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Skeleton } from "@/components/ui/skeleton";
 import { finhubAPIURL } from '@/lib/utils';
-import { LogOut, Search } from 'lucide-react';
+import { ChevronDown, LogOut, Search } from 'lucide-react';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
@@ -111,26 +111,30 @@ export default function Navbar() {
                     </div>
                 </DialogContent>
             </Dialog>
-            <div className='w-12 aspect-square rounded-full bg-primary flex items-center justify-center text-primary-foreground font-medium'>
-                {
-                    username && (
-                        <DropdownMenu>
-                            <DropdownMenuTrigger><p>{`${username.charAt(0).toUpperCase()}${username.split(" ").at(-1)?.charAt(0).toUpperCase()}`}</p></DropdownMenuTrigger>
-                            <DropdownMenuContent className="mr-4 mt-4">
-                                <DropdownMenuItem onClick={() => {
-                                    document.cookie = 'token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
-                                    document.cookie = 'username=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
-                                    window.location.replace('/');
-                                }}>
-                                    <LogOut size={20} className='mr-2' />
-                                    <p>Logout</p>
-                                </DropdownMenuItem>
-                            </DropdownMenuContent>
-                        </DropdownMenu>
 
-                    )
-                }
-            </div>
+            {
+                username && (
+                    <DropdownMenu>
+                        <DropdownMenuTrigger className="flex flex-row gap-2 items-center justify-center">
+                            <div className='w-12 aspect-square rounded-full bg-primary flex items-center justify-center text-primary-foreground font-medium'>
+                                <p>{`${username.charAt(0).toUpperCase()}${username.split(" ").at(-1)?.charAt(0).toUpperCase()}`}</p>
+                            </div>
+                            <ChevronDown size={20} className='' />
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent className="mr-4 mt-4">
+                            <DropdownMenuItem onClick={() => {
+                                document.cookie = 'token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+                                document.cookie = 'username=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+                                window.location.replace('/');
+                            }}>
+                                <LogOut size={20} className='mr-2' />
+                                <p>Logout</p>
+                            </DropdownMenuItem>
+                        </DropdownMenuContent>
+                    </DropdownMenu>
+
+                )
+            }
         </nav>
     )
 }

@@ -33,7 +33,7 @@ function CustomTableRow({ id, name, symbol, quantity, price, currentPrice }: Rea
                     {name}
                 </span>
             </TableCell>
-            <TableCell>
+            <TableCell className="min-w-[10rem]">
                 <div>
                     {currentPrice.toLocaleString('en-US', {
                         style: 'currency',
@@ -52,9 +52,12 @@ function CustomTableRow({ id, name, symbol, quantity, price, currentPrice }: Rea
                     {quantity}
                 </span>
             </TableCell>
-            <TableCell>
+            <TableCell className="min-w-[6rem]">
                 <span>
-                    {price * quantity}
+                    {(price * quantity).toLocaleString('en-US', {
+                        style: 'currency',
+                        currency: 'USD'
+                    })}
                 </span>
             </TableCell>
             <TableCell className='flex gap-2 items-center justify-start mt-1'>

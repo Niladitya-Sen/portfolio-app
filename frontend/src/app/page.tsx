@@ -111,7 +111,7 @@ export default function Index() {
                     </div>
                     <Button type="submit" className="w-full" disabled={loading}>
                       Login
-                      <LoaderCircle className={cn("hidden ml-2", {
+                      <LoaderCircle className={cn("hidden", {
                         "animate-spin block": loading
                       })} />
                     </Button>

@@ -141,7 +141,7 @@ export default function EditStockDialogForm({ id, name, price, quantity, symbol 
                     </div>
                     <Button className='col-span-full'>
                         Edit
-                        <LoaderCircle className={cn("hidden ml-2", {
+                        <LoaderCircle className={cn("hidden ", {
                             "animate-spin block": loading
                         })} />
                     </Button>

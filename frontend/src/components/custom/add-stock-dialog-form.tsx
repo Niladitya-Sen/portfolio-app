@@ -129,7 +129,7 @@ export default function AddStockDialogForm() {
                     </div>
                     <Button className='col-span-full' disabled={loading}>
                         Add
-                        <LoaderCircle className={cn("hidden ml-2", {
+                        <LoaderCircle className={cn("hidden ", {
                             "animate-spin block": loading
                         })} />
                     </Button>

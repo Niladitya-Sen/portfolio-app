@@ -67,7 +67,7 @@ export default function DeleteStockDialog({ id }: Readonly<{ id: number }>) {
                         setOpen(false);
                     }}>
                         Delete
-                        <LoaderCircle className={cn("hidden ml-2", {
+                        <LoaderCircle className={cn("hidden ", {
                             "animate-spin block": loading
                         })} />
                     </Button>
