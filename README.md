@@ -6,7 +6,6 @@
 2. [Steps to Run Locally](#steps-to-run-locally)
 3. [Assumptions and Limitations](#assumptions-and-limitations)
 4. [Links to Deployed Application](#links-to-deployed-application)
-5. [Live API Documentation](#live-api-documentation)
 
 ---
 
@@ -32,6 +31,7 @@ cd your-repository
 ```
 
 ### **Step 2: Configure Environment**
+
 1. Create a new .env in `frontend` folder
 
     ```properties
@@ -39,6 +39,7 @@ cd your-repository
     NEXT_PUBLIC_FINHUB_API_KEY=your-fin-hub-api-key
     NEXT_PUBLIC_API_URL=http://localhost:8080/api
     ```
+
 2. Edit `application.properties` in `backend/src/main/resources`:
 
    ```properties
@@ -51,6 +52,7 @@ cd your-repository
 ### **Step 3: Build the Project**
 
 Run the following command to build the project:
+
 1. **Frontend**:
 
     ```bash
@@ -58,6 +60,7 @@ Run the following command to build the project:
     npm install
     npm run build
     ```
+
 2. **Backend**:
 
     ```bash
@@ -66,18 +69,19 @@ Run the following command to build the project:
     ```
 
 ### **Step 4: Run the Application**
+
 1. **Backend**:
 
     ```bash
     java -jar backend/target/portfolio-app-0.0.1-SNAPSHOT.jar
     ```
+
 2. **Frontend**:
 
     ```bash
     cd frontend
     npm run start
     ```
-
 
 ### **Step 5: Access the Application**
 
@@ -96,8 +100,6 @@ Run the following command to build the project:
 ---
 
 ## **Links to Deployed Application**
-
-If deployed, provide links to the hosted application:
 
 - **Frontend**: [https://portfolio-app-gilt-phi.vercel.app](https://portfolio-app-gilt-phi.vercel.app)
 - **Backend API**: [https://portfolio-app-private.onrender.com/api/](https://portfolio-app-private.onrender.com/api/)

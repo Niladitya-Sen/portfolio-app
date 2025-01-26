@@ -25,7 +25,7 @@ function CustomTableRow({ id, name, symbol, quantity, price, currentPrice }: Rea
         <TableRow className='h-16'>
             <TableCell>
                 <span className="ml-4">
-                    <Link href={`/stocks/${symbol}`} className="hover:text-primary">{symbol}</Link>
+                    <Link href={`/stocks/${symbol}`} className="text-primary underline">{symbol}</Link>
                 </span>
             </TableCell>
             <TableCell>
